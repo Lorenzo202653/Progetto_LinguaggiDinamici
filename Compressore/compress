@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+
+import sys, os
+
+#funziona
+def raccoltaFilePath(parametri, ricorsivo):
+	filesPath=[]
+	cwd=os.getcwd()
+	for voce in parametri:
+		#print('ValutazioneParametri:\t',voce)
+		if os.path.isdir(voce):
+			if ricorsivo==True:
+				for root, dirs, files in os.walk(voce):
+					for name in files:
+						filesPath.append(os.path.abspath(name))
+			else: #ricorsivo == False
+				print('ATTENZIONE: usare -r per analizzare le directory:\t',voce)
+		elif os.path.isfile(voce):
+			filesPath.append(os.path.abspath(voce))
+		else: # !file and !dir
+			print('ATTENZIONE: non esiste alcun file chiamato:\t', voce)
+	return filesPath
+
+#funziona -> ignora i flag non definiti
+def valutazioneParametri():
+	parametri=[]
+	flagV=flagR=False
+
+	for c in sys.argv:
+		print('valutazione di ', c)
+
+		if c=='./compress':
+			continue
+
+		if c.startswith('-'):
+			if 'v' in c:
+				flagV=True
+			if 'r' in c:
+				flagR=True
+		else:
+			parametri.append(c)
+
+	return parametri,[flagV, flagR]
+
+if __name__ == '__main__':
+	parametri, flag=valutazioneParametri()
+	print('Il valore dei flag è ', flag)
+	filesPath=raccoltaFilePath(parametri, flag[1])
+	print('path', filesPath)
