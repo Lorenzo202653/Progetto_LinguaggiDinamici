@@ -1,0 +1,36 @@
+Tipi di stringhe in python 3.0
+
+str (testo unicode a uno o più byte)
+bytes (rappresenta dati binari )
+bytearray (versione mutabile di bytes)
+
+tutte e 3 hanno quasi  le stesse funzioni ma scopi differenti.Lo scopo finale è quello di supportare sia testo ASCII
+che testo unicode. In modo da rendere la gestione di unicode più naturale dato che ASCII è una sua sottoinsieme.
+
+Per la gestione di dati binari puri è stato introdotto bytes. E' definito come " una sequenza immutabile di interi a 8 bit"
+ma in python 3.0 è in realtà una sequenza di interi con valore compreso tra 0 e 255 (infatti l'indicizzazione o sezionamento di un tipo bytes restituisce un int)
+tuttavia i byte di un bytes vengono assunti come rappresentazione di caratteri ASCII (esempio metodo isalpha) e per questo vengono in automatico visualizzati come caratteri.
+
+bytearray permette modifiche sul posto. Stesse funzioni di bytes ma aggiunge funzioni tipiche delle liste per modifiche sul posto come append e extend
+
+Nella 3.0 si userà str per ogni tipo di dato testuale e bytes / bytearray per i dati binari (in python 2.x non è cosi).
+
+GESTIONE DEI FILE 
+
+Se non si specifica nell'apertura di un file come deve essere trattato il contenuto , phyton di default gestirà come stringhe.
+Quindi se non si specifica la "b" un file viene aperto in modalità testo "rt".
+
+esempio 
+
+B= b'ciao' // crea un oggetto bytes (byte da 8 bit) , scrivere B=B 'ciao' è equivalente 
+S= 'ciao' // di default crea un oggetto str (caratteri unicode cioe uno o più byte)
+
+type(B) type(S) per controllare il tipo
+
+come detto prima bytes è una sequenza di numeri infatti
+
+B[0] >>> 99
+list(B)>>>> [99, 105,97,111]
+
+sezionamento crea un altro oggetto bytes
+B[1:]>>>> b'iao'
